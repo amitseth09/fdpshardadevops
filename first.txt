@@ -1,0 +1,25 @@
+git config --list
+
+git config --global user.name "amitseth09"
+git config --global user.email "amitseth.it@gmail.com"
+git init
+git status
+
+git add file-name
+git add .
+git commit -m "my first commit"
+
+git remote add origin https://github.com/amitseth09/fdpshardadevops.git
+git remote -v
+
+git push -u origin master
+
+---- again n again for every change --
+git add .
+git commit -m "my first commit"
+git push -u origin master
+----
+
+git branch
+git branch login
+git switch login

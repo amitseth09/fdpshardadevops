@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Login</title>
+		<style>
+			:root{--bg:#f4f7fb;--card:#ffffff;--accent:#0069ff;--muted:#6b7280}
+			*{box-sizing:border-box}
+			body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);display:flex;align-items:center;justify-content:center;height:100vh}
+			.card{background:var(--card);width:100%;max-width:420px;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(15,23,42,0.08)}
+			h1{margin:0 0 8px;font-size:20px}
+			p.lead{margin:0 0 20px;color:var(--muted);font-size:14px}
+			label{display:block;font-size:13px;margin-bottom:6px;color:#111827}
+			input[type="text"],input[type="password"],input[type="email"]{width:100%;padding:12px 14px;border:1px solid #e6e9ef;border-radius:8px;font-size:14px}
+			.row{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+			.actions{margin-top:18px}
+			button{background:var(--accent);color:#fff;border:0;padding:12px 16px;border-radius:8px;font-weight:600;cursor:pointer;width:100%}
+			.muted{color:var(--muted);font-size:13px}
+			.error{color:#b91c1c;font-size:13px;margin-top:8px}
+			.footer{margin-top:14px;text-align:center;font-size:13px;color:var(--muted)}
+			@media (max-width:420px){body{padding:20px}}
+		</style>
+	</head>
+	<body>
+		<main class="card" role="main">
+			<h1>Sign in to your account</h1>
+			<p class="lead">Enter your credentials to continue.</p>
+
+			<form id="loginForm" novalidate>
+				<div>
+					<label for="email">Email</label>
+					<input id="email" name="email" type="email" inputmode="email" placeholder="you@example.com" required />
+				</div>
+
+				<div style="margin-top:12px">
+					<label for="password">Password</label>
+					<input id="password" name="password" type="password" placeholder="••••••••" required minlength="6" />
+				</div>
+
+				<div class="row" style="margin-top:14px">
+					<label style="display:flex;align-items:center;gap:8px;font-size:13px"><input id="remember" name="remember" type="checkbox" /> Remember me</label>
+					<a href="#" class="muted">Forgot?</a>
+				</div>
+
+				<div class="actions">
+					<button type="submit">Sign in</button>
+					<div id="error" class="error" aria-live="polite" style="display:none"></div>
+				</div>
+			</form>
+
+			<div class="footer">Don't have an account? <a href="#">Create one</a></div>
+		</main>
+
+		<script>
+			const form = document.getElementById('loginForm');
+			const errorEl = document.getElementById('error');
+
+			function showError(msg){ errorEl.textContent = msg; errorEl.style.display = 'block'; }
+			function clearError(){ errorEl.textContent = ''; errorEl.style.display = 'none'; }
+
+			form.addEventListener('submit', (e)=>{
+				e.preventDefault();
+				clearError();
+				const email = form.email.value.trim();
+				const password = form.password.value;
+
+				if(!email) return showError('Please enter your email.');
+				// basic email pattern
+				const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				if(!re.test(email)) return showError('Enter a valid email address.');
+				if(password.length < 6) return showError('Password must be at least 6 characters.');
+
+				// Demo behaviour: show success message instead of real authentication
+				form.querySelector('button').textContent = 'Signing...';
+				form.querySelector('button').disabled = true;
+				setTimeout(()=>{
+					form.querySelector('button').textContent = 'Sign in';
+					form.querySelector('button').disabled = false;
+					alert('Demo: login successful (no backend)');
+					form.reset();
+				}, 900);
+			});
+		</script>
+	</body>
+</html>
